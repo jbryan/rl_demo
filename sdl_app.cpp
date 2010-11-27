@@ -87,9 +87,12 @@ void SdlApp::init()
 	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 
 	glEnable (GL_POINT_SMOOTH);
+	glEnable (GL_POLYGON_SMOOTH);
+	glEnable (GL_LINE_SMOOTH);
 	glEnable (GL_BLEND);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glHint (GL_POINT, GL_NICEST);
+	glHint (GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 
 	/* Height / width ration */
 	GLfloat ratio = (GLfloat) videoInfo->current_w 
@@ -163,6 +166,7 @@ void SdlApp::handle_key_press( SDL_keysym *keysym )
 	switch ( keysym->sym )
 	{
 		case SDLK_ESCAPE:
+		case SDLK_q:
 			tear_down( );
 			break;
 		default:
