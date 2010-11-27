@@ -15,7 +15,7 @@ class SdlApp
 		virtual void run_loop();
 
 	protected:
-		virtual void draw_scene() {};
+		virtual void draw_scene() {}
 		virtual void handle_key_press( SDL_keysym *keysym);
 
 	private:
