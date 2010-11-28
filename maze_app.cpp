@@ -8,7 +8,7 @@
 #include "maze_app.h"
 
 MazeApp::MazeApp() :
-	my_maze(5,5)
+	my_maze(5,5), agent(&my_maze)
 { }
 
 MazeApp::~MazeApp()
@@ -29,6 +29,7 @@ void MazeApp::draw_scene()
 	glRotatef(theta, 0.0, 0.0, 1.0);
 	glTranslatef( -0.5, -0.5, 0);
 
+	agent.act();
 	my_maze.draw_maze();
 
 	glPopMatrix();

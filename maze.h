@@ -9,8 +9,8 @@
 class Maze
 {
 	public:
-		typedef boost::multi_array<float,2> maze_t;
-		typedef boost::array<maze_t::index,2> location_t;
+		typedef boost::multi_array<float,2> grid_t;
+		typedef boost::array<grid_t::index,2> location_t;
 
 		typedef enum 
 		{
@@ -29,7 +29,7 @@ class Maze
 		
 
 	private:
-		maze_t maze;
+		grid_t grid;
 		location_t location;
 };
 

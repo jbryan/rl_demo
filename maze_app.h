@@ -2,7 +2,9 @@
 #define MAZE_APP_H_
 
 #include "sdl_app.h"
+
 #include "maze.h"
+#include "q_agent.h"
 
 class MazeApp : public SdlApp
 {
@@ -17,6 +19,7 @@ class MazeApp : public SdlApp
 		float theta;
 
 		Maze my_maze;
+		QAgent agent;
 
 };
 #endif

@@ -8,20 +8,20 @@
 #include "discrete.h"
 
 Maze::Maze(int x, int y) :
-	maze(boost::extents[x][y]), location()
+	grid(boost::extents[x][y]), location()
 {
 	std::vector<double> probs(x*y,1.0);
 
 	DiscreteVariate goal(probs);
 	std::size_t g = goal();
-	maze.origin()[g] = 1.0f;
+	grid.origin()[g] = 1.0f;
 	probs[g] = 0;
 
 	for (int i = 0; i < sqrt(x*y); i++)
 	{
 		DiscreteVariate traps(probs);
 		std::size_t t = traps();
-		maze.origin()[t] = -1.0f;
+		grid.origin()[t] = -1.0f;
 		probs[t] = 0;
 	}
 
@@ -31,19 +31,19 @@ Maze::Maze(int x, int y) :
 
 void Maze::draw_maze()
 {
-	maze_t::size_type x,y;
-	GLfloat x_scale = 1.0 / maze.shape()[0];
-	GLfloat y_scale = 1.0 / maze.shape()[1];
+	grid_t::size_type x,y;
+	GLfloat x_scale = 1.0 / grid.shape()[0];
+	GLfloat y_scale = 1.0 / grid.shape()[1];
 	
 	//draw the grid
-	for (x = 0; x < maze.shape()[0]; x++)
+	for (x = 0; x < grid.shape()[0]; x++)
 	{
-		for (y = 0; y < maze.shape()[1]; y++)
+		for (y = 0; y < grid.shape()[1]; y++)
 		{
 			GLfloat red, blue, green;
-			red = (maze[x][y] > 0) ? 1.0 - fabs(maze[x][y]) : 1.0f;
-			green  = (maze[x][y] < 0) ? 1.0 - fabs(maze[x][y]) : 1.0f;
-			blue = 1.0 - fabs(maze[x][y]);
+			red = (grid[x][y] > 0) ? 1.0 - fabs(grid[x][y]) : 1.0f;
+			green  = (grid[x][y] < 0) ? 1.0 - fabs(grid[x][y]) : 1.0f;
+			blue = 1.0 - fabs(grid[x][y]);
 			glColor3f(red, green, blue);
 
 			glBegin( GL_QUADS );
@@ -66,22 +66,22 @@ void Maze::draw_maze()
 		glVertex3f( (x + 0.7) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
 	glEnd();
 	glBegin( GL_POLYGON );
-		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.45);
+		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.65);
 		glVertex3f( (x + 0.2) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
 		glVertex3f( (x + 0.2) * x_scale, (y + 0.7) * y_scale, x_scale * 0.2);
 	glEnd();
 	glBegin( GL_POLYGON );
-		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.45);
+		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.65);
 		glVertex3f( (x + 0.2) * x_scale, (y + 0.7) * y_scale, x_scale * 0.2);
 		glVertex3f( (x + 0.7) * x_scale, (y + 0.7) * y_scale, x_scale * 0.2);
 	glEnd();
 	glBegin( GL_POLYGON );
-		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.45);
+		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.65);
 		glVertex3f( (x + 0.7) * x_scale, (y + 0.7) * y_scale, x_scale * 0.2);
 		glVertex3f( (x + 0.7) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
 	glEnd();
 	glBegin( GL_POLYGON );
-		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.45);
+		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.65);
 		glVertex3f( (x + 0.2) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
 		glVertex3f( (x + 0.7) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
 	glEnd();
@@ -93,22 +93,22 @@ float Maze::perform_action(action_t action)
 	switch (action)
 	{
 		case UP:
-			if (location[1] < maze.shape()[1])
+			if (location[1] < grid.shape()[1]-1)
 				location[1]++;
 			break;
 		case DOWN:
-			if (location[1] < maze.shape()[1])
+			if (location[1] > 0)
 				location[1]--;
 			break;
 		case RIGHT:
-			if (location[0] < maze.shape()[0])
+			if (location[0] < grid.shape()[0]-1)
 				location[0]++;
 			break;
 		case LEFT:
-			if (location[0] < maze.shape()[0])
-				location[1]--;
+			if (location[0] > 0)
+				location[0]--;
 			break;
 	}
 
-	return maze(location);
+	return grid(location);
 }
