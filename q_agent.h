@@ -16,6 +16,8 @@ class QAgent
 		virtual ~QAgent() {}
 
 		virtual void act();
+		virtual void reset_value();
+		virtual void draw_policy() const;
 
 	private:
 		//discount factor
@@ -25,6 +27,11 @@ class QAgent
 		float alpha_;
 		Maze & maze_;
 		value_t q_values_;
+
+		float& q( Maze::location_t const & s, Maze::action_t a);
+		float const& q( Maze::location_t const & s, Maze::action_t a) const;
+		float max_over_actions( Maze::location_t const & s) const;
+		Maze::action_t argmax_over_actions( Maze::location_t const & s) const;
 };
 
 #endif

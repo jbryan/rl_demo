@@ -14,11 +14,11 @@ class Maze
 		enum action_t 
 		{
 			UP,
-			DOWN,
 			LEFT,
+			DOWN,
 			RIGHT,
 			NUM_ACT,
-			MIN_ACT=UP
+			MIN_ACT=0
 		};
 
 		Maze(int x, int y);
@@ -26,6 +26,8 @@ class Maze
 
 		virtual void draw_maze() const;
 		virtual float perform_action(action_t action);
+		virtual location_t transition(location_t loc, action_t action);
+
 		location_t const &get_location() const { return location; };
 		unsigned int get_width() const ;
 		unsigned int get_height() const ;
