@@ -21,7 +21,7 @@ void MazeApp::draw_scene()
 	glLoadIdentity();
 
 	//update model
-	theta += 0.9f;
+	theta += 0.2f;
 
 	glPushMatrix();
 	glTranslatef( 0, 0, -2);

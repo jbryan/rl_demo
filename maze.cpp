@@ -2,14 +2,31 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <iostream>
+#include <vector>
 #include <cmath>
 #include "maze.h"
+#include "discrete.h"
 
 Maze::Maze(int x, int y) :
-	maze(boost::extents[x][y])
+	maze(boost::extents[x][y]), location()
 {
-	maze[0][0] = -1.0;
-	maze[1][0] = 1.0;
+	std::vector<double> probs(x*y,1.0);
+
+	DiscreteVariate goal(probs);
+	std::size_t g = goal();
+	maze.origin()[g] = 1.0f;
+	probs[g] = 0;
+
+	for (int i = 0; i < sqrt(x*y); i++)
+	{
+		DiscreteVariate traps(probs);
+		std::size_t t = traps();
+		maze.origin()[t] = -1.0f;
+		probs[t] = 0;
+	}
+
+	location[0] = 0;
+	location[1] = 0;
 }
 
 void Maze::draw_maze()
@@ -17,14 +34,16 @@ void Maze::draw_maze()
 	maze_t::size_type x,y;
 	GLfloat x_scale = 1.0 / maze.shape()[0];
 	GLfloat y_scale = 1.0 / maze.shape()[1];
+	
+	//draw the grid
 	for (x = 0; x < maze.shape()[0]; x++)
 	{
 		for (y = 0; y < maze.shape()[1]; y++)
 		{
 			GLfloat red, blue, green;
-			red = (maze[x][y] > 0) ? 1.0 - abs(maze[x][y]) : 1.0f;
-			green  = (maze[x][y] < 0) ? 1.0 - abs(maze[x][y]) : 1.0f;
-			blue = 1.0 - abs(maze[x][y]);
+			red = (maze[x][y] > 0) ? 1.0 - fabs(maze[x][y]) : 1.0f;
+			green  = (maze[x][y] < 0) ? 1.0 - fabs(maze[x][y]) : 1.0f;
+			blue = 1.0 - fabs(maze[x][y]);
 			glColor3f(red, green, blue);
 
 			glBegin( GL_QUADS );
@@ -35,6 +54,38 @@ void Maze::draw_maze()
 			glEnd();
 		}
 	}
+
+	//draw current location
+	glColor4f( 0.0, 0.0, 1.0, 0.3);
+	x = location[0];
+	y = location[1];
+	glBegin( GL_POLYGON );
+		glVertex3f( (x + 0.2) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
+		glVertex3f( (x + 0.2) * x_scale, (y + 0.7) * y_scale, x_scale * 0.2);
+		glVertex3f( (x + 0.7) * x_scale, (y + 0.7) * y_scale, x_scale * 0.2);
+		glVertex3f( (x + 0.7) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
+	glEnd();
+	glBegin( GL_POLYGON );
+		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.45);
+		glVertex3f( (x + 0.2) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
+		glVertex3f( (x + 0.2) * x_scale, (y + 0.7) * y_scale, x_scale * 0.2);
+	glEnd();
+	glBegin( GL_POLYGON );
+		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.45);
+		glVertex3f( (x + 0.2) * x_scale, (y + 0.7) * y_scale, x_scale * 0.2);
+		glVertex3f( (x + 0.7) * x_scale, (y + 0.7) * y_scale, x_scale * 0.2);
+	glEnd();
+	glBegin( GL_POLYGON );
+		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.45);
+		glVertex3f( (x + 0.7) * x_scale, (y + 0.7) * y_scale, x_scale * 0.2);
+		glVertex3f( (x + 0.7) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
+	glEnd();
+	glBegin( GL_POLYGON );
+		glVertex3f( (x + 0.45) * x_scale, (y + 0.45) * y_scale, x_scale * 0.45);
+		glVertex3f( (x + 0.2) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
+		glVertex3f( (x + 0.7) * x_scale, (y + 0.2) * y_scale, x_scale * 0.2);
+	glEnd();
+	
 }
 
 float Maze::perform_action(action_t action)

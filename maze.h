@@ -9,6 +9,9 @@
 class Maze
 {
 	public:
+		typedef boost::multi_array<float,2> maze_t;
+		typedef boost::array<maze_t::index,2> location_t;
+
 		typedef enum 
 		{
 			UP,
@@ -22,12 +25,12 @@ class Maze
 
 		virtual void draw_maze();
 		virtual float perform_action(action_t action);
+		location_t const &get_location() const { return location; };
+		
 
 	private:
-		typedef boost::multi_array<float,2> maze_t;
-
 		maze_t maze;
-		boost::array<maze_t::index,2> location;
+		location_t location;
 };
 
 #endif

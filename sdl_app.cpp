@@ -89,10 +89,13 @@ void SdlApp::init()
 	glEnable (GL_POINT_SMOOTH);
 	glEnable (GL_POLYGON_SMOOTH);
 	glEnable (GL_LINE_SMOOTH);
+
+	glHint (GL_POINT_SMOOTH_HINT, GL_NICEST);
+	glHint (GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+	glHint (GL_LINE_SMOOTH_HINT, GL_NICEST);
+
 	glEnable (GL_BLEND);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glHint (GL_POINT, GL_NICEST);
-	glHint (GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 
 	/* Height / width ration */
 	GLfloat ratio = (GLfloat) videoInfo->current_w 
