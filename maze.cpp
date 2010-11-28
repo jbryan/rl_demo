@@ -29,7 +29,7 @@ Maze::Maze(int x, int y) :
 	location[1] = 0;
 }
 
-void Maze::draw_maze()
+void Maze::draw_maze() const
 {
 	grid_t::size_type x,y;
 	GLfloat x_scale = 1.0 / grid.shape()[0];
@@ -111,4 +111,13 @@ float Maze::perform_action(action_t action)
 	}
 
 	return grid(location);
+}
+
+unsigned int Maze::get_width() const
+{
+	return grid.shape()[0];
+}
+unsigned int Maze::get_height() const
+{
+	return grid.shape()[1];
 }
