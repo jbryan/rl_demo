@@ -119,7 +119,7 @@ float Maze::perform_action(action_t action)
 		location[1] = 0;
 	}
 	//return reward in state - 1 cost for action
-	return value - 0.1;
+	return value - 0.001;
 }
 
 Maze::location_t Maze::transition(location_t loc, action_t action)

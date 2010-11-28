@@ -87,8 +87,8 @@ void QAgent::draw_policy() const
 				glRotatef( a * 90, 0, 0, 1.0);
 
 				glBegin( GL_POLYGON );
-					glVertex3f( -x_scale /4.0, y_scale / 5.0, 0.0);
-					glVertex3f( x_scale /4.0, y_scale / 5.0, 0.0);
+					glVertex3f( -x_scale /4.5, y_scale / 5.0, 0.0);
+					glVertex3f( x_scale /4.5, y_scale / 5.0, 0.0);
 					glVertex3f( 0, y_scale / 2.5, 0.0);
 				glEnd();
 
