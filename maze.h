@@ -29,13 +29,15 @@ class Maze
 		virtual location_t transition(location_t loc, action_t action);
 
 		location_t const &get_location() const { return location; };
+
 		unsigned int get_width() const ;
 		unsigned int get_height() const ;
-		
+		void set_schocastic_actions_( bool stochastic );
 
 	private:
 		grid_t grid;
 		location_t location;
+		bool stochastic_actions_;
 };
 
 #endif

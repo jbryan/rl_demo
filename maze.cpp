@@ -8,7 +8,9 @@
 #include "discrete.h"
 
 Maze::Maze(int x, int y) :
-	grid(boost::extents[x][y]), location()
+	grid(boost::extents[x][y]), 
+	location(), 
+	stochastic_actions_(false)
 {
 	std::vector<double> probs(x*y,1.0);
 
@@ -109,6 +111,22 @@ void Maze::draw_maze() const
 
 float Maze::perform_action(action_t action)
 {
+	if (stochastic_actions_)
+	{
+		//randomly select "real" action
+		std::vector<double> probs;
+		for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; 
+				a = Maze::action_t(a+1))
+		{
+			//choose requested action with probability .7 and another 
+			//action with probability .1
+			probs.push_back(a == action ? 7 : 1);
+		}
+		DiscreteVariate rand_action(probs);
+		action = action_t(rand_action());
+	}
+	
+	//get the updated location
 	location = transition(location, action);
 	float value = grid(location); 
 
@@ -119,7 +137,7 @@ float Maze::perform_action(action_t action)
 		location[1] = 0;
 	}
 	//return reward in state - 1 cost for action
-	return value - 0.001;
+	return value - 0.005;
 }
 
 Maze::location_t Maze::transition(location_t loc, action_t action)
@@ -154,4 +172,8 @@ unsigned int Maze::get_width() const
 unsigned int Maze::get_height() const
 {
 	return grid.shape()[1];
+}
+void Maze::set_schocastic_actions_( bool stochastic ) 
+{
+	stochastic_actions_ = stochastic;
 }
