@@ -5,7 +5,7 @@
 #include <GL/glu.h>
 
 #include <cmath>
-#include <ctime>
+#include <sys/time.h>
 
 #include "maze_app.h"
 
@@ -18,7 +18,9 @@ MazeApp::~MazeApp()
 
 void MazeApp::draw_scene()
 {
-	static clock_t last_act_time = clock();
+	timeval current_time;
+	gettimeofday(&current_time, NULL);
+	static timeval last_act_time = current_time;
 
 	/* Clear The Screen And The Depth Buffer */
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -34,10 +36,11 @@ void MazeApp::draw_scene()
 	glTranslatef( -0.5, -0.5, 0);
 
 	//do an action if "enough" time has passed
-	if (clock() - last_act_time > 50000)
+	if (current_time.tv_sec > last_act_time.tv_sec || 
+			current_time.tv_usec - last_act_time.tv_usec > 50000)
 	{
 		agent.act();
-		last_act_time = clock();
+		last_act_time = current_time;
 	}
 
 	//draw the maze
