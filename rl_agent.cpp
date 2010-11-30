@@ -1,10 +1,16 @@
 
+#include <iostream>
+
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <cmath>
+
+#include "discrete.h"
 #include "rl_agent.h"
 
 RLAgent::RLAgent(Maze * maze) :
 	maze_(*maze),
+	time_step_(0),
 	q_values_(
 			boost::extents[maze_.get_width()][maze_.get_height()][Maze::NUM_ACT]
 			)
@@ -98,4 +104,20 @@ Maze::action_t RLAgent::argmax_over_actions( Maze::location_t const & s) const
 	return action;
 }
 
+Maze::action_t RLAgent::choose_action( Maze::location_t const & s)
+{
+	time_step_++;
+	double k = sqrt(time_step_);
+
+	std::vector<double> probs;
+	for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
+	{
+		probs.push_back(pow(k,q(s,a)));
+		//std::cout << pow(k,q(s,a)) << std::endl;
+	}
+
+	DiscreteVariate logit(probs);
+	return Maze::action_t(logit());
+
+}
 

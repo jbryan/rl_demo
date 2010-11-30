@@ -7,14 +7,14 @@
 
 QAgent::QAgent(Maze * maze) :
 	RLAgent(maze),
-	gamma_(0.95),
-	alpha_(0.5)
+	gamma_(0.9),
+	alpha_(1)
 { }
 
 QAgent::QAgent(Maze * maze, float gamma) :
 	RLAgent(maze),
 	gamma_(gamma),
-	alpha_(0.5)
+	alpha_(1)
 { }
 
 
@@ -27,7 +27,7 @@ void QAgent::act()
 	//std::vector<double> probs(4,1.0);
 	//DiscreteVariate choose(probs);
 	//Maze::action_t action = (Maze::action_t) choose();
-	Maze::action_t action = argmax_over_actions(current_loc);;
+	Maze::action_t action = choose_action(current_loc);;
 
 	//do the action and get the reward
 	float reward = maze_.perform_action(action);

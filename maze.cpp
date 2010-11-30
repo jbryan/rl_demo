@@ -28,7 +28,7 @@ Maze::Maze(int x, int y) :
 	}
 
 	//create hazards
-	for (int i = 0; i < sqrt(x*y); i++)
+	for (int i = 0; i < 3*sqrt(x*y); i++)
 	{
 		DiscreteVariate traps(probs);
 		std::size_t t = traps();

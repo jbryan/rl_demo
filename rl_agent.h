@@ -19,12 +19,17 @@ class RLAgent
 	protected:
 		Maze & maze_;
 		value_t q_values_;
+		long time_step_;
 
+		//convenience functions for accessing q values
 		float& q( Maze::location_t const & s, Maze::action_t a);
 		float const& q( Maze::location_t const & s, Maze::action_t a) const;
+
 		float max_over_actions( Maze::location_t const & s) const;
 		Maze::action_t argmax_over_actions( Maze::location_t const & s) const;
-};
 
+		virtual Maze::action_t choose_action( Maze::location_t const & s);
+
+};
 
 #endif
