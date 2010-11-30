@@ -11,7 +11,8 @@ class RLAgent
 		virtual ~RLAgent() {}
 
 		typedef boost::multi_array<float,3> value_t;
-		typedef boost::array<value_t::index,3> value_index_t;
+		typedef boost::multi_array<unsigned long,3> visits_t;
+		typedef boost::array<value_t::index,3> index_t;
 
 		virtual void act() = 0;
 		virtual void reset_value();
@@ -19,7 +20,11 @@ class RLAgent
 	protected:
 		Maze & maze_;
 		value_t q_values_;
+		visits_t visits_;
+
 		long time_step_;
+
+		virtual float alpha( Maze::location_t const & s, Maze::action_t a);
 
 		//convenience functions for accessing q values
 		float& q( Maze::location_t const & s, Maze::action_t a);

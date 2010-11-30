@@ -36,7 +36,7 @@ void QAgent::act()
 	Maze::location_t new_loc = maze_.get_location();
 
 	//update q value for previous state
-	q(current_loc,action) += alpha_ * (
+	q(current_loc,action) += alpha(current_loc,action) * (
 			reward + 
 			gamma_ * max_over_actions(new_loc) - 
 			q(current_loc,action)

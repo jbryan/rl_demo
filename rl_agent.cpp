@@ -13,8 +13,10 @@ RLAgent::RLAgent(Maze * maze) :
 	time_step_(0),
 	q_values_(
 			boost::extents[maze_.get_width()][maze_.get_height()][Maze::NUM_ACT]
+			),
+	visits_(
+			boost::extents[maze_.get_width()][maze_.get_height()][Maze::NUM_ACT]
 			)
-
 {
 	reset_value();
 }
@@ -25,6 +27,10 @@ void RLAgent::reset_value()
 		for (value_t::size_type y = 0; y < q_values_.shape()[1]; y++)
 			for (value_t::size_type a = 0; a < q_values_.shape()[2]; a++)
 				q_values_[x][y][a] = 0.0;
+	for (value_t::size_type x = 0; x < visits_.shape()[0]; x++)
+		for (value_t::size_type y = 0; y < visits_.shape()[1]; y++)
+			for (value_t::size_type a = 0; a < visits_.shape()[2]; a++)
+				visits_[x][y][a] = 0.0;
 }
 
 void RLAgent::draw_policy() const
@@ -121,3 +127,8 @@ Maze::action_t RLAgent::choose_action( Maze::location_t const & s)
 
 }
 
+float RLAgent::alpha( Maze::location_t const & s, Maze::action_t a)
+{
+	visits_[s[0]][s[1]][a]++;
+	return 1.0 / ( visits_[s[0]][s[1]][a] );
+}
