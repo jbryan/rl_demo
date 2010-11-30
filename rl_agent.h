@@ -22,8 +22,6 @@ class RLAgent
 		value_t q_values_;
 		visits_t visits_;
 
-		long time_step_;
-
 		virtual float alpha( Maze::location_t const & s, Maze::action_t a);
 
 		//convenience functions for accessing q values
@@ -32,6 +30,7 @@ class RLAgent
 
 		float max_over_actions( Maze::location_t const & s) const;
 		Maze::action_t argmax_over_actions( Maze::location_t const & s) const;
+		float visit( Maze::location_t const & s, Maze::action_t a);
 
 		virtual Maze::action_t choose_action( Maze::location_t const & s);
 

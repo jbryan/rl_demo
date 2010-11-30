@@ -10,7 +10,6 @@
 
 RLAgent::RLAgent(Maze * maze) :
 	maze_(*maze),
-	time_step_(0),
 	q_values_(
 			boost::extents[maze_.get_width()][maze_.get_height()][Maze::NUM_ACT]
 			),
@@ -112,13 +111,10 @@ Maze::action_t RLAgent::argmax_over_actions( Maze::location_t const & s) const
 
 Maze::action_t RLAgent::choose_action( Maze::location_t const & s)
 {
-	time_step_++;
-	double k = sqrt(time_step_);
-
 	std::vector<double> probs;
 	for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
 	{
-		probs.push_back(pow(k,q(s,a)));
+		probs.push_back(pow(1/alpha(s,a),q(s,a)));
 		//std::cout << pow(k,q(s,a)) << std::endl;
 	}
 
@@ -127,8 +123,12 @@ Maze::action_t RLAgent::choose_action( Maze::location_t const & s)
 
 }
 
-float RLAgent::alpha( Maze::location_t const & s, Maze::action_t a)
+float RLAgent::visit( Maze::location_t const & s, Maze::action_t a)
 {
 	visits_[s[0]][s[1]][a]++;
-	return 1.0 / ( visits_[s[0]][s[1]][a] );
+}
+
+float RLAgent::alpha( Maze::location_t const & s, Maze::action_t a)
+{
+	return 10.0 / ( 10.0 + visits_[s[0]][s[1]][a] );
 }

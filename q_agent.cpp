@@ -28,12 +28,14 @@ void QAgent::act()
 	//DiscreteVariate choose(probs);
 	//Maze::action_t action = (Maze::action_t) choose();
 	Maze::action_t action = choose_action(current_loc);;
+	visit(current_loc, action);
 
 	//do the action and get the reward
 	float reward = maze_.perform_action(action);
 
 	//get new location
 	Maze::location_t new_loc = maze_.get_location();
+
 
 	//update q value for previous state
 	q(current_loc,action) += alpha(current_loc,action) * (
