@@ -111,21 +111,30 @@ Maze::action_t RLAgent::argmax_over_actions( Maze::location_t const & s) const
 
 Maze::action_t RLAgent::choose_action( Maze::location_t const & s)
 {
+	double k =1;
+	for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
+	{
+		k += visits(s,a) / 100;
+	}
+
 	std::vector<double> probs;
 	for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
 	{
-		probs.push_back(pow(1/alpha(s,a),q(s,a)));
+		probs.push_back(pow(k,q(s,a)));
 		//std::cout << pow(k,q(s,a)) << std::endl;
 	}
 
 	DiscreteVariate logit(probs);
-	return Maze::action_t(logit());
 
+	Maze::action_t action = Maze::action_t(logit());
+
+	visits(s, action)++;
+	return action;
 }
 
-float RLAgent::visit( Maze::location_t const & s, Maze::action_t a)
+unsigned long& RLAgent::visits( Maze::location_t const & s, Maze::action_t a)
 {
-	visits_[s[0]][s[1]][a]++;
+	return visits_[s[0]][s[1]][a];
 }
 
 float RLAgent::alpha( Maze::location_t const & s, Maze::action_t a)

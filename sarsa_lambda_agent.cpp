@@ -2,23 +2,25 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include "q_agent.h"
+#include "sarsa_lambda_agent.h"
 #include "discrete.h"
 
-QAgent::QAgent(Maze * maze) :
+SarsaLambdaAgent::SarsaLambdaAgent(Maze * maze) :
 	RLAgent(maze),
 	gamma_(0.9),
+	lambda_(0.9),
 	alpha_(1)
 { }
 
-QAgent::QAgent(Maze * maze, float gamma) :
+SarsaLambdaAgent::SarsaLambdaAgent(Maze * maze, float gamma, float lambda) :
 	RLAgent(maze),
 	gamma_(gamma),
+	lambda_(lambda),
 	alpha_(1)
 { }
 
 
-void QAgent::act()
+void SarsaLambdaAgent::act()
 {
 
 	Maze::location_t current_loc = maze_.get_location();

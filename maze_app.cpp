@@ -11,7 +11,9 @@
 
 MazeApp::MazeApp() :
 	my_maze(10,10), agent(&my_maze)
-{ }
+{ 
+	//my_maze.set_schocastic_actions_(true);
+}
 
 MazeApp::~MazeApp()
 { }

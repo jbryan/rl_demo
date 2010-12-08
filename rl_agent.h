@@ -30,7 +30,7 @@ class RLAgent
 
 		float max_over_actions( Maze::location_t const & s) const;
 		Maze::action_t argmax_over_actions( Maze::location_t const & s) const;
-		float visit( Maze::location_t const & s, Maze::action_t a);
+		unsigned long& visits( Maze::location_t const & s, Maze::action_t a);
 
 		virtual Maze::action_t choose_action( Maze::location_t const & s);
 
