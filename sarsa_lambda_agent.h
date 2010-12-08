@@ -20,8 +20,14 @@ class SarsaLambdaAgent :
 		float gamma_; 
 		float lambda_;
 
-		//learning rate
-		float alpha_;
+		//place to store next action after it has been
+		//decided
+		Maze::action_t new_act;
+
+		RLAgent::value_t e_values_;
+
+		float& e( Maze::location_t const & s, Maze::action_t a);
+		float const& e( Maze::location_t const & s, Maze::action_t a) const;
 };
 
 #endif

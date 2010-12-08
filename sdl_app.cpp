@@ -52,7 +52,7 @@ void SdlApp::init()
 	if ( videoInfo->blit_hw )
 		videoFlags |= SDL_HWACCEL;
 
-	videoFlags |= SDL_FULLSCREEN;
+	//videoFlags |= SDL_FULLSCREEN;
 
 	/* Sets up OpenGL double buffering */
 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );

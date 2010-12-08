@@ -19,8 +19,6 @@ class QAgent :
 		//discount factor
 		float gamma_; 
 
-		//learning rate
-		float alpha_;
 };
 
 #endif

@@ -16,7 +16,7 @@ env.Append(
   CXXFLAGS=[
     '-O3',
     '-DNDEBUG',
-  ]
+  ],
 )
 
 sources = Glob("*.cpp")

@@ -23,7 +23,7 @@ Maze::Maze(int x, int y) :
 	{
 		DiscreteVariate goal(probs);
 		std::size_t g = goal();
-		grid.origin()[g] = 1.0f;
+		grid.origin()[g] = 5.0f;
 		probs[g] = 0;
 	}
 

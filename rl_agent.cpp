@@ -111,11 +111,11 @@ Maze::action_t RLAgent::argmax_over_actions( Maze::location_t const & s) const
 
 Maze::action_t RLAgent::choose_action( Maze::location_t const & s)
 {
-	double k =1;
-	for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
-	{
-		k += visits(s,a) / 100;
-	}
+	double k =10;
+	//for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
+	//{
+		//k += visits(s,a) / 10.0;
+	//}
 
 	std::vector<double> probs;
 	for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))

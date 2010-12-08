@@ -5,6 +5,7 @@
 
 #include "maze.h"
 #include "q_agent.h"
+#include "sarsa_lambda_agent.h"
 
 class MazeApp : public SdlApp
 {
@@ -18,8 +19,10 @@ class MazeApp : public SdlApp
 	private:
 		float theta;
 
-		Maze my_maze;
-		QAgent agent;
+		Maze q_maze;
+		Maze sarsa_maze;
+		QAgent q_agent;
+		SarsaLambdaAgent sarsa_agent;
 
 };
 #endif
