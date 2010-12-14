@@ -11,7 +11,7 @@
 #include "maze_app.h"
 
 MazeApp::MazeApp() :
-	q_maze(10,10), sarsa_maze(q_maze), q_agent(&q_maze), sarsa_agent(&sarsa_maze)
+	q_maze(30,30), sarsa_maze(q_maze), q_agent(&q_maze), sarsa_agent(&sarsa_maze)
 { 
 	//my_maze.set_schocastic_actions_(true);
 }
@@ -32,8 +32,8 @@ void MazeApp::draw_scene()
 	//update model
 	theta += 0.2f;
 	//do an action if "enough" time has passed
-	if (current_time.tv_sec > last_act_time.tv_sec || 
-			current_time.tv_usec - last_act_time.tv_usec > 50000)
+	//if (current_time.tv_sec > last_act_time.tv_sec || 
+			//current_time.tv_usec - last_act_time.tv_usec > 50000)
 	{
 		q_agent.act();
 		sarsa_agent.act();
