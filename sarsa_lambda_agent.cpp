@@ -72,7 +72,7 @@ void SarsaLambdaAgent::act()
 		{
 			for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
 			{
-				q(s,a) += alpha(current_loc,current_act) * delta * e(s,a);
+				q(s,a) += alpha(s,a) * delta * e(s,a);
 			}
 		}
 	}
