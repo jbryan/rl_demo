@@ -47,7 +47,7 @@ void Maze::draw_maze() const
 	GLfloat y_scale = 1.0 / grid.shape()[1];
 
 	//draw the grid
-	glLineWidth(2.0);
+	glLineWidth(3.0);
 	for (x = 0; x < grid.shape()[0]; x++)
 	{
 		for (y = 0; y < grid.shape()[1]; y++)

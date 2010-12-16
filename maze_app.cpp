@@ -30,7 +30,8 @@ void MazeApp::draw_scene()
 	glLoadIdentity();
 
 	//update model
-	theta += 0.2f;
+	theta = fmod(2 * (current_time.tv_sec + current_time.tv_usec * 1e-6f), 360.0f );
+
 	//do an action if "enough" time has passed
 	//if (current_time.tv_sec > last_act_time.tv_sec || 
 			//current_time.tv_usec - last_act_time.tv_usec > 50000)
