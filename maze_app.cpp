@@ -30,11 +30,11 @@ void MazeApp::draw_scene()
 	glLoadIdentity();
 
 	//update model
-	theta = fmod(2 * (current_time.tv_sec + current_time.tv_usec * 1e-6f), 360.0f );
+	theta = fmod(2 * (current_time.tv_sec + current_time.tv_usec * 1e-6), 360.0 );
 
 	//do an action if "enough" time has passed
-	//if (current_time.tv_sec > last_act_time.tv_sec || 
-			//current_time.tv_usec - last_act_time.tv_usec > 50000)
+	if (current_time.tv_sec > last_act_time.tv_sec || 
+			current_time.tv_usec - last_act_time.tv_usec > 50000)
 	{
 		q_agent.act();
 		sarsa_agent.act();

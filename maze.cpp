@@ -173,7 +173,7 @@ unsigned int Maze::get_height() const
 {
 	return grid.shape()[1];
 }
-void Maze::set_schocastic_actions_( bool stochastic ) 
+void Maze::set_stochastic_actions( bool stochastic ) 
 {
 	stochastic_actions_ = stochastic;
 }

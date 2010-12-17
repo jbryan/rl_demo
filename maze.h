@@ -32,7 +32,7 @@ class Maze
 
 		unsigned int get_width() const ;
 		unsigned int get_height() const ;
-		void set_schocastic_actions_( bool stochastic );
+		void set_stochastic_actions( bool stochastic );
 
 	private:
 		grid_t grid;
