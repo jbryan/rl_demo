@@ -20,7 +20,8 @@ This demo requires boost libraries, SDL, and OpenGL be installed.
 
 RUNNING
 
-Simply execute the rl_demo file after building.
+Simply execute the rl_demo file after building.  The demo will run in fullscreen
+mode.  To exit, you can press Q or <esc>.  
 
 
 BUGS
@@ -31,3 +32,17 @@ additional features that could be added, and certainly improvements can be made.
 I wrote this as a simple demo for a single presentation, but have published it
 in the hopes that someone else might find it useful.  If you do, or have
 suggestions for improvements, let me know.
+
+Here are a few I can think of:
+
+	1) Add command line options for parameters of the maze problem.  E.G. size,
+	number of red squares, number of green squares, stochasticity of actions
+
+	2) Add text to the display that gives info about the algorithm.  E.G. the name
+	of the algorithm, the average reward earned, etc.
+
+One issue is that occasionally the randomly generated maze produces a maze which
+is too simple.  For example, a green square is adjacent to the start position,
+so the optimal policy is learned immediately and nothing interesting happens.
+It would be nice to to either avoid these mazes altogether or allow the user to
+regenerate mazes without restarting.
