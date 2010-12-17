@@ -7,6 +7,10 @@
 #include <boost/random/uniform_01.hpp>
 #include <boost/random/variate_generator.hpp>
 
+/*
+ * This class represents a discrete random variate with an
+ * aribtrary probability distribution.
+ */
 class DiscreteVariate 
 {
 	public:
@@ -17,7 +21,9 @@ class DiscreteVariate
 		boost::variate_generator<boost::mt19937&, boost::uniform_01<> >
 			sampler;
 
+		//the cumulative distribution
 		std::vector<double> cdf;
+		//normalizing sum of the cdf
 		double sum;
 
 		static boost::mt19937 rng;

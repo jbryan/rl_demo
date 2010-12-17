@@ -15,7 +15,9 @@ QAgent::QAgent(Maze * maze, float gamma) :
 	gamma_(gamma)
 { }
 
-
+/*
+ * act in the maze environment and learn from it
+ */
 void QAgent::act()
 {
 

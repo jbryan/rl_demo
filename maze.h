@@ -5,21 +5,29 @@
 #include <vector>
 #include <boost/multi_array.hpp>
 
+/*
+ * A class to represent the simple maze world that the 
+ * learning agents will interact with.
+ */
 class Maze
 {
 	public:
 		typedef boost::multi_array<float,2> grid_t;
 		typedef boost::array<grid_t::index,2> location_t;
 
+		// Action names
 		enum action_t 
 		{
 			UP,
 			LEFT,
 			DOWN,
 			RIGHT,
-			NUM_ACT,
-			MIN_ACT=0
+			MIN_ACT= UP,
+			MAX_ACT = RIGHT
 		};
+
+		// Number of actions
+		static int const NUM_ACT = MAX_ACT + 1;
 
 		Maze(int x, int y);
 		virtual ~Maze() {}
@@ -35,8 +43,11 @@ class Maze
 		void set_stochastic_actions( bool stochastic );
 
 	private:
+		// array representing the grid world
 		grid_t grid;
+		// current location of the agent
 		location_t location;
+		// whether we should use stochastic actions
 		bool stochastic_actions_;
 };
 

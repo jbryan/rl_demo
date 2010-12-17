@@ -1,7 +1,9 @@
 
 #include "maze_app.h"
 
-
+/*
+ * Main entry point ... create the app, and run it.
+ */
 int main( int argc, char **argv )
 {
 	try

@@ -5,6 +5,9 @@
 #include "rl_agent.h"
 #include "maze.h"
 
+/*
+ * Implentation of SARSA-lambda agent.
+ */
 class SarsaLambdaAgent :
 	public RLAgent
 {

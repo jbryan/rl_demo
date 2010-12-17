@@ -29,6 +29,9 @@ SarsaLambdaAgent::SarsaLambdaAgent(Maze * maze, float gamma, float lambda) :
 }
 
 
+/*
+ * Perform an action in the maze and learn from it
+ */
 void SarsaLambdaAgent::act()
 {
 
@@ -57,7 +60,8 @@ void SarsaLambdaAgent::act()
 	{
 		for (s[1] = 0; s[1] < e_values_.shape()[1]; s[1]++)
 		{
-			for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
+			for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; 
+					a = Maze::action_t(a+1)) 
 			{
 				e(s,a) *= gamma_ * lambda_;
 			}
@@ -70,7 +74,8 @@ void SarsaLambdaAgent::act()
 	{
 		for (s[1] = 0; s[1] < q_values_.shape()[1]; s[1]++)
 		{
-			for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
+			for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; 
+					a = Maze::action_t(a+1)) 
 			{
 				q(s,a) += alpha(s,a) * delta * e(s,a);
 			}
@@ -79,11 +84,17 @@ void SarsaLambdaAgent::act()
 
 }
 
+/*
+ * Convenience function for accessing eligibility traces
+ */
 float& SarsaLambdaAgent::e( Maze::location_t const & s, Maze::action_t a)
 {
 	return e_values_[s[0]][s[1]][a];
 }
 
+/*
+ * Convenience function for accessing eligibility traces
+ */
 float const& SarsaLambdaAgent::e( Maze::location_t const & s, Maze::action_t a) const
 {
 	std::cout << s[0] << std::endl;

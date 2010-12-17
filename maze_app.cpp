@@ -11,7 +11,7 @@
 #include "maze_app.h"
 
 MazeApp::MazeApp() :
-	q_maze(30,30), sarsa_maze(q_maze), q_agent(&q_maze), sarsa_agent(&sarsa_maze)
+	q_maze(10,10), sarsa_maze(q_maze), q_agent(&q_maze), sarsa_agent(&sarsa_maze)
 { 
 	//my_maze.set_schocastic_actions_(true);
 }
@@ -19,6 +19,9 @@ MazeApp::MazeApp() :
 MazeApp::~MazeApp()
 { }
 
+/*
+ * Draw the scene and update the two learning agents.
+ */
 void MazeApp::draw_scene()
 {
 	timeval current_time;

@@ -40,6 +40,9 @@ Maze::Maze(int x, int y) :
 	location[1] = 0;
 }
 
+/*
+ * Draw the maze as a colored grid.
+ */
 void Maze::draw_maze() const
 {
 	grid_t::size_type x,y;
@@ -109,8 +112,12 @@ void Maze::draw_maze() const
 	
 }
 
+/*
+ * update the position of the agent based on the action it performs
+ */
 float Maze::perform_action(action_t action)
 {
+	//if the environment is stochastic
 	if (stochastic_actions_)
 	{
 		//randomly select "real" action
@@ -140,6 +147,10 @@ float Maze::perform_action(action_t action)
 	return value - 0.005;
 }
 
+/*
+ * Give a new location by computing the effect of the action on the
+ * old location
+ */
 Maze::location_t Maze::transition(location_t loc, action_t action)
 {
 	switch (action)
@@ -165,14 +176,25 @@ Maze::location_t Maze::transition(location_t loc, action_t action)
 	return loc;
 }
 
+/*
+ * get the width of the maze
+ */
 unsigned int Maze::get_width() const
 {
 	return grid.shape()[0];
 }
+
+/*
+ * get the height of the maze
+ */
 unsigned int Maze::get_height() const
 {
 	return grid.shape()[1];
 }
+
+/*
+ * set whether to update state stochastically or no
+ */
 void Maze::set_stochastic_actions( bool stochastic ) 
 {
 	stochastic_actions_ = stochastic;

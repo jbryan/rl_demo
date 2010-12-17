@@ -4,6 +4,10 @@
 #include <boost/multi_array.hpp>
 #include "maze.h"
 
+/*
+ * Base class from which other Reinforcement Learning agents 
+ * derive
+ */
 class RLAgent
 {
 	public:

@@ -3,6 +3,10 @@
 
 #include "SDL.h"
 
+/*
+ * A base class that can be used for setting up simple
+ * SDL apps.
+ */
 class SdlApp
 {
 	public:

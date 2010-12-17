@@ -7,6 +7,10 @@
 #include "q_agent.h"
 #include "sarsa_lambda_agent.h"
 
+/*
+ * An extension of SdlApp to implement the main
+ * drawing loop for this reinforcement learning demo
+ */
 class MazeApp : public SdlApp
 {
 	public:
@@ -19,9 +23,13 @@ class MazeApp : public SdlApp
 	private:
 		float theta;
 
+		// The maze for the q agent
 		Maze q_maze;
+		// The maze for the sarsa agent
 		Maze sarsa_maze;
+		// The q agent
 		QAgent q_agent;
+		// The sarsa-lambda agent
 		SarsaLambdaAgent sarsa_agent;
 
 };

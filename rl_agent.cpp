@@ -20,6 +20,9 @@ RLAgent::RLAgent(Maze * maze) :
 	reset_value();
 }
 
+/*
+ * Reset the q and visits tables
+ */
 void RLAgent::reset_value()
 {
 	for (value_t::size_type x = 0; x < q_values_.shape()[0]; x++)
@@ -32,6 +35,9 @@ void RLAgent::reset_value()
 				visits_[x][y][a] = 0.0;
 }
 
+/*
+ * Draw the Q functions as a set of colored arrows on the grid.
+ */
 void RLAgent::draw_policy() const
 {
 	value_t::size_type x,y;
@@ -69,16 +75,25 @@ void RLAgent::draw_policy() const
 
 }
 
+/*
+ * Convenience function to get the q value for a state and action
+ */
 float& RLAgent::q( Maze::location_t const & s, Maze::action_t a)
 {
 	return q_values_[s[0]][s[1]][a];
 }
 
+/*
+ * Convenience function to get the q value for a state and action
+ */
 float const& RLAgent::q( Maze::location_t const & s, Maze::action_t a) const
 {
 	return q_values_[s[0]][s[1]][a];
 }
 
+/*
+ * Get the max for q over all actions and given state
+ */
 float RLAgent::max_over_actions( Maze::location_t const & s) const
 {
 	Maze::action_t action;
@@ -94,6 +109,9 @@ float RLAgent::max_over_actions( Maze::location_t const & s) const
 	return max_value;
 }
 
+/*
+ * Get the action that produces the maximum value for q
+ */
 Maze::action_t RLAgent::argmax_over_actions( Maze::location_t const & s) const
 {
 	Maze::action_t action;
@@ -109,13 +127,12 @@ Maze::action_t RLAgent::argmax_over_actions( Maze::location_t const & s) const
 	return action;
 }
 
+/*
+ * Picks an action according logit quantal response probability
+ */
 Maze::action_t RLAgent::choose_action( Maze::location_t const & s)
 {
-	double k =10;
-	//for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
-	//{
-		//k += visits(s,a) / 10.0;
-	//}
+	double k = 5;
 
 	std::vector<double> probs;
 	for (Maze::action_t a = Maze::MIN_ACT;  a < Maze::NUM_ACT; a = Maze::action_t(a+1))
@@ -132,11 +149,17 @@ Maze::action_t RLAgent::choose_action( Maze::location_t const & s)
 	return action;
 }
 
+/*
+ * Convenience function for the number of times a state/action pair has been visited.
+ */
 unsigned long& RLAgent::visits( Maze::location_t const & s, Maze::action_t a)
 {
 	return visits_[s[0]][s[1]][a];
 }
 
+/*
+ * Return the learning rate for a given state/action pair
+ */
 float RLAgent::alpha( Maze::location_t const & s, Maze::action_t a)
 {
 	return 10.0 / ( 10.0 + visits_[s[0]][s[1]][a] );

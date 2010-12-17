@@ -15,6 +15,11 @@ SdlApp::~SdlApp()
 	tear_down();
 }
 
+/*
+ * This function sets up the SDL surface and gl options.  Some of this has been
+ * borrowed from Ti Leggett's SDL port of Jeff Molofee's opengl examples at 
+ * http://nehe.gamedev.net.
+ */
 void SdlApp::init()
 {
 	/* Flags to pass to SDL_SetVideoMode */
@@ -121,12 +126,18 @@ void SdlApp::init()
 	running = true;
 }
 
+/*
+ * call before quitting
+ */
 void SdlApp::tear_down()
 {
 	running = false;
 	SDL_Quit();
 }
 
+/*
+ * Run through one frame drawing cycle
+ */
 void SdlApp::step()
 {
 	if (!running) return;
@@ -156,6 +167,9 @@ void SdlApp::step()
 
 }
 
+/*
+ * iterate the frame loop until done
+ */
 void SdlApp::run_loop()
 {
 	while(running)
@@ -164,6 +178,9 @@ void SdlApp::run_loop()
 	}
 }
 
+/*
+ * check for key presses
+ */
 void SdlApp::handle_key_press( SDL_keysym *keysym )
 {
 	switch ( keysym->sym )

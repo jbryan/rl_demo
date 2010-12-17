@@ -5,6 +5,9 @@
 #include "rl_agent.h"
 #include "maze.h"
 
+/*
+ * Implement a Q learning agent
+ */
 class QAgent :
 	public RLAgent
 {
