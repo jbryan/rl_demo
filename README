@@ -1,0 +1,33 @@
+
+													REINFORCEMENT LEARNING DEMO
+
+This is a short demo of two different reinforcement learning algorithms in a
+simple maze world.  The red squares give negative reward (-1) and the green
+squares give positive reward (+3).  The goal of the agents is to find an optimal
+policy.  The left grid shows a Q-learning agent and the right shows a
+SARSA-lambda agent.  This demo was put together for a short presentation I did
+on reinforcement learning.
+
+BUILDING
+
+There is a SConstruct file so this can be built using Scons.  If you have Scons
+installed, simply type 
+
+scons
+
+This demo requires boost libraries, SDL, and OpenGL be installed.  
+
+
+RUNNING
+
+Simply execute the rl_demo file after building.
+
+
+BUGS
+
+I am aware of none, though I have only tested this on a couple of machines, all
+with Ubuntu 10.10 as the OS.  If you find bugs, let me know.  There are many
+additional features that could be added, and certainly improvements can be made.
+I wrote this as a simple demo for a single presentation, but have published it
+in the hopes that someone else might find it useful.  If you do, or have
+suggestions for improvements, let me know.
