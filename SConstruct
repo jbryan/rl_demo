@@ -22,5 +22,5 @@ env.Append(
 sources = Glob("*.cpp")
 object_list = env.Object(source = sources)
 
-ex_point_pf = env.Program("relearn", source=object_list)
+ex_point_pf = env.Program("rl_demo", source=object_list)
 
